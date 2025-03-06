@@ -29,7 +29,7 @@ while(True):
         traduzione = t.handleTranslate(ricerca)
         print(traduzione)
     if int(txtIn) == 3:
-        ricerca = input("Ok, quale parola devo cercare?\n").strip().lower()
+        ricerca = input("Ok, quale parola devo cercare?\n\n").strip().lower()
         if ricerca.count("?")>1:
             print("ERRORE! In una ricerca ci può essere solo un carattere '?'")
         else:

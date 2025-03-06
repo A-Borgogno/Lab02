@@ -28,13 +28,24 @@ class Translator:
             infile = open(dict, "r", encoding="utf-8")
             diz = {}
             for riga in infile:
-                campi = riga.split(" ")
-                diz[campi[0]] = campi[1].strip()
+                campi = riga.split(" ", 1)
+                chiave = campi[0]
+                valore = campi[1].strip()
+
+                # Se la chiave è già presente, aggiungiamo il valore alla lista
+                if chiave in diz:
+                    if not isinstance(diz[chiave], list):  # Garantiamo che sia una lista
+                        diz[chiave] = [diz[chiave]]
+                    diz[chiave].append(valore)
+                else:
+                    diz[chiave] = [valore]
 
             infile.close()
             self.dizionario = Dictionary(diz)
+
         except FileNotFoundError:
             print("Dizionario non trovato")
+
 
     def handleAdd(self, entry):
         # entry is a tuple <parola_aliena> <traduzione1 traduzione2 ...>
@@ -60,4 +71,6 @@ class Translator:
 
     def handleWildCard(self,query):
         # query is a string with a ? --> <par?la_aliena>
-        pass
+        traduzione = self.dizionario.translateWordWildCard(query)
+        return traduzione
+

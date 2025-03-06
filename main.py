@@ -25,11 +25,19 @@ while(True):
         else:
             raise Exception("Parola non valida")
     if int(txtIn) == 2:
-        ricerca = input("Ok, quale parola devo cercare?\n").strip().lower()
+        ricerca = input("Ok, quale parola vuoi cercare?\n").strip().lower()
         traduzione = t.handleTranslate(ricerca)
         print(traduzione)
     if int(txtIn) == 3:
-        pass
+        ricerca = input("Ok, quale parola devo cercare?\n").strip().lower()
+        if ricerca.count("?")>1:
+            print("ERRORE! In una ricerca ci può essere solo un carattere '?'")
+        else:
+            traduzione = t.handleWildCard(ricerca)
+            if not traduzione == []:
+                print(traduzione)
+            else:
+                print("Nessuna corrispondenza trovata")
     if int(txtIn) == 4:
         print(t.dizionario)
     if int(txtIn) == 5:
